@@ -1,0 +1,4 @@
+Approach,CV Mean RMSE,CV Std
+1. Rare-Category Grouping (OHE freq>=10),1.2367852929414558,0.11447712045588623
+2. Target Encoding (out-of-fold cv=5),1.3004115930798057,0.08998982261051665
+3. Feature Removal (Exclude cohort_code),1.254949823384726,0.08751334966901002

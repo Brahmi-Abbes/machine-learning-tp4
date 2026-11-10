@@ -1,0 +1,8 @@
+Experiment,Training RMSE,Testing RMSE
+B.1 Random Split (Decision Tree),5.408658974454375e-16,1.5785244956393083
+B.1 Chronological Split (Decision Tree),5.999314860941094e-16,1.9750263711319567
+B.1 Baseline Mean (Chronological Dummy),1.2685414955931342,1.236163577616247
+B.2 Duplicate Leakage (Split Before Dedup),6.437684322872547e-16,1.8257319358134902
+B.2 Clean (Dedup Before Split),5.393444713726544e-16,1.7127493735706534
+"B.3 Preprocessing Leakage (Global Scaler, KNN)",1.0690537701826164,1.1568992321431166
+"B.3 Clean Preprocessing (Pipeline Scaler, KNN)",1.0657894667803767,1.1468543481337692

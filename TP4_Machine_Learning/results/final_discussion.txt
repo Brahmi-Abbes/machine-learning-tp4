@@ -1,0 +1,42 @@
+
+1. Which model achieves the best generalization?
+   Gradient Boosting with chronological early stopping achieves the best generalization
+   (Testing RMSE = 1.0573, Testing R² = 0.2664), closely followed by Linear Regression
+   (Testing RMSE = 1.0576, R² = 0.2659) and Ridge Regression (Testing RMSE = 1.0591).
+   All three achieve a ~14.5% reduction in prediction error compared to the baseline.
+
+2. Which model shows the largest generalization gap?
+   The unconstrained Decision Tree (max_depth=None or depth=20 from Part C.1) exhibits the
+   largest generalization gap (+1.9750 CGPA points), memorizing the training data perfectly
+   (Training RMSE = 0.0000) while failing severely on test data (Testing RMSE = 1.9750),
+   performing substantially worse than the trivial Dummy baseline (1.2362).
+
+3. Which techniques were most effective in reducing overfitting?
+   The most effective techniques were:
+   - Tree depth restriction: Restricting tree depth to max_depth=3 reduced test RMSE from 1.9750 to 1.0677.
+   - Temporal feature selection: Removing 'submission_day' prevented catastrophic out-of-distribution
+     extrapolation errors across all algorithms.
+   - Early stopping on a chronological holdout: Terminating Gradient Boosting at 48 trees prevented
+     late-stage noise accumulation.
+   - Regularization: Lasso with alpha=0.01 zeroed out 4 of 5 polynomial terms, eliminating high-variance noise.
+
+4. Why should model selection rely on validation performance rather than training performance?
+   Training error measures only memorization capacity and decreases monotonically with complexity.
+   Evaluating on training data rewards overfitting. Validation performance (via TimeSeriesSplit)
+   simulates prediction on unseen future data, exposing the bias-variance trade-off and identifying
+   where generalization begins to deteriorate.
+
+5. Why must the final test set remain untouched during model selection?
+   If the test set is repeatedly consulted to select hyperparameters, features, or stopping rules,
+   information leaks from the test set into the modeling pipeline. This produces 'information leakage'
+   or 'data snooping', turning the test set into pseudo-training data and yielding over-optimistic,
+   unreliable estimates of real-world generalization.
+
+6. What does a modest R² tell us about the information contained in the survey features,
+   and why is a high score not always evidence of good evaluation?
+   A modest R² (~0.266) accurately reflects that self-reported survey answers (study hours, sleep,
+   attendance bands) provide partial, noisy information about academic performance; human learning
+   involves unmeasured factors like course difficulty, individual aptitude, and assessment design.
+   In contrast, an artificially high R² (e.g., 0.95+) often signals severe data leakage (such as including
+   'performance_risk_level', duplicate leakage, or random splits across time) rather than superior modeling.
+    
